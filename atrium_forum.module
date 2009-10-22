@@ -1,0 +1,56 @@
+<?php
+
+include_once('atrium_forum.features.inc');
+
+/**
+ * Implementation of hook_strongarm
+ *
+ * @return void
+ * @author Craig Gardner
+ **/
+function atrium_forum_strongarm() {
+  $conf = array (
+	  'forum_allow_public' => 0,
+	  'forum_all_public' => 1,
+	  'forum_auto_public' => 1,
+	  'forum_containers' => 
+	  array (
+	    0 => '1',
+	  ),
+	  'forum_default_container' => '-1',
+	  'forum_default_container_yn' => 0,
+	  'forum_limit' => '0',
+	  'forum_nav_vocabulary' => '2',
+	);
+	return $conf;
+} // end function atrium_forum_strongarm()
+
+/**
+ * Implementation of hook_dashboard
+ *
+ * @return void
+ * @author Craig Gardner
+ **/
+function atrium_forum_dashboard() {
+  $blocks = array();
+
+	$blocks['forum_block_recent_activity'] = array(
+		'module' => 'forum',
+    'delta' => '0',
+    'weight' => 20,
+    'region' => 'right',
+		'context' => 'forum',
+	);
+	
+	return $blocks;
+} // end function atrium_forum_dashboard()
+
+/**
+ * Implementation of hook_init
+ *
+ * @return void
+ * @author Craig Gardner
+ **/
+function atrium_forum_init() {
+  drupal_add_css(drupal_get_path('module', 'atrium_forum') .'/atrium_forum.css');
+} // end function atrium_forum_init()
